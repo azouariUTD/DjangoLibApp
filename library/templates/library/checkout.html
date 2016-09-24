@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout a Book</title>
+
+</head>
+<body>
+<h3>Checkout a Book</h3>
+
+
+<div>
+    <form method="post">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" name="Checkout"/>
+        </p>
+        {% csrf_token %}
+    </form>
+</div>
+<br>
+<strong><a href="{% url 'index' %}">Home Page</a></strong>
+</body>
+</html>

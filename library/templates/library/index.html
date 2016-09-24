@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to My Library!</title>
+    <style>
+        body {
+            background-color: cyan;
+        }
+
+
+
+        div {
+
+            margin: auto;
+            width: 60%;
+            border: 3px solid #8AC007;
+            padding: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: auto;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            display: inline;
+            margin: 0 0 3px 0;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+<div>
+    <div>
+        <h2>Welcome to My Library!</h2>
+    </div>
+
+        <ul>
+            <li>
+                <a href="{% url 'search' %}">Book Search</a>
+            </li>
+
+            <li>
+                <a href="{% url 'add_borrower' %}">Add Borrower</a>
+            </li>
+
+            <li>
+                <a href="{% url 'fines' %}">Create Fines</a>
+            </li>
+        </ul>
+
+ <div>
+        <p>
+        <h4>My Checkouts</h4>
+
+        <form method="post" action="{% url 'checkouts' %}">
+            {{ form.as_p }}
+            <p>
+                <input type="submit" name="Search"/>
+            </p>
+            {% csrf_token %}
+        </form>
+        </p>
+
+
+        <p>
+        <h4>My Fines</h4>
+
+        <form method="post" action="{% url 'listfines' %}">
+            {{ form.as_p }}
+            <p>
+                <input type="submit" name="Search"/>
+            </p>
+            {% csrf_token %}
+        </form>
+        </p>
+
+    </div>
+
+
+</div>
+</body>
+</html>

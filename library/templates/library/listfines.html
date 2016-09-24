@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Fines</title>
+    <style>
+        table, td, th {
+            border: 1px solid green;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h3>My unpaid Fines</h3>
+
+<div>
+    <form method="post">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" name="My Fines"/>
+        </p>
+        {% csrf_token %}
+    </form>
+</div>
+
+
+
+{% if unpaidfines %}
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Book</th>
+                <th>Title</th>
+                <th>Fine Amt</th>
+                <th>Pay Fine</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for fine in unpaidfines %}
+                <tr>
+                    <td>{{ fine.loan.book.pk }}</td>
+                    <td>{{ fine.loan.book.title }}</td>
+                    <td>{{ fine.fine_amt }}</td>
+
+                    <td>
+                        {% if fine.loan.date_in != None %}
+
+                            <strong> <a href="{% url 'payfines' %}?fine_id={{ fine.pk }}">Pay Fine</a></strong>
+                        {% else %}
+                            <strong>Book needs to be returned</strong>
+                        {% endif %}
+
+
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endif %}
+<br>
+<strong><a href="{% url 'index' %}">Home Page</a></strong>
+</body>
+</html>

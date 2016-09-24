@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrower Checked Out Books</title>
+    <style>
+        table, td, th {
+            border: 1px solid green;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+<h3>Borrower Checked Out Books</h3>
+
+<div>
+    <form method="post">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" name="List Checkouts"/>
+        </p>
+        {% csrf_token %}
+    </form>
+</div>
+
+
+
+{% if loans %}
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Title</th>
+                <th>Branch ID</th>
+                <th>Due Date</th>
+                <th>Check In</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for loan in loans %}
+                <tr>
+                    <td>{{ loan.book.pk }}</td>
+                    <td>{{ loan.book.title }}</td>
+                    <td>{{ loan.branch.pk }}</td>
+                    <td>{{ loan.due_date }}</td>
+                    <td><a href="{% url 'checkin' %}?loan_id={{ loan.pk }}">Check In</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endif %}
+<br>
+<strong><a href="{% url 'index' %}">Home Page</a></strong>
+</body>
+</html>

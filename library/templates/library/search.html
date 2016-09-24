@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Search</title>
+    <style>
+        table, td, th {
+            border: 1px solid green;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h3>Book Search</h3>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div>
+    <form method="post">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" name="Search"/>
+        </p>
+        {% csrf_token %}
+    </form>
+</div>
+<strong><a href="{% url 'index' %}">Home Page</a></strong>
+
+
+{% if results %}
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Branch ID</th>
+                <th>Num Copies</th>
+                <th>Available</th>
+                <th>Checkout</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row.book_id }}</td>
+                    <td>{{ row.title }}</td>
+                    <td>{{ row.author_name }}</td>
+                    <td>{{ row.branch_id }}</td>
+                    <td>{{ row.no_of_copies }}</td>
+                    <td>{{ row.available_copies }}</td>
+                    <td>
+                        {% if row.available_copies > 0 %}
+                            <strong><a
+                                    href="{% url 'checkout' %}?branch_id={{ row.branch_id }}&book_id={{ row.book_id }}">Checkout</a></strong>
+                        {% else %}
+                            <strong>Not Available</strong>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+</body>
+</html>

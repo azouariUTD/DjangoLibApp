@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Borrower</title>
+</head>
+<body>
+<h3>Add Borrower</h3>
+
+<div>
+    <form method="post">
+        {{ form.as_p }}
+        <p>
+            <input type="submit" name="Add"/>
+        </p>
+        {% csrf_token %}
+    </form>
+</div>
+<strong><a href="{% url 'index' %}">Home Page</a></strong>
+</body>
+</html>
